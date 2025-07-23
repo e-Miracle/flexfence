@@ -1,8 +1,8 @@
-// src/screens/DetailsScreen.tsx
+// src/screens/OnboardingScreen.tsx
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const DetailsScreen: React.FC = () => {
+const OnboardingScreen: React.FC = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
@@ -10,4 +10,4 @@ const DetailsScreen: React.FC = () => {
   );
 };
 
-export default DetailsScreen;
+export default OnboardingScreen;

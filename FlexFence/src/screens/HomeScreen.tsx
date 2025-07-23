@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
@@ -10,7 +10,7 @@ type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
 };
 
-const HomeScreen: React.FC<HomeScreenProps> = () => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const colors = useAppColors();
   const { theme } = useTheme();
 
@@ -24,6 +24,15 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
       ? require('../assets/whiteflex.png')
       : require('../assets/blackflex.png');
 
+  // ⏱ Navigate to DetailsScreen after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Onboard');
+    }, 3000);
+
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, [navigation]);
+
   return (
     <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.centeredContent}>
@@ -31,7 +40,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
       </View>
       <View style={styles.bottomContent}>
         <Image source={flexSource} style={styles.fleximage} resizeMode="contain" />
-        <Text style={{color:colors.text, fontSize:10}}>Boundary-Free Attendance</Text>
+        <Text style={{ color: colors.text, fontSize: 10 }}>Boundary-Free Attendance</Text>
       </View>
     </ScreenContainer>
   );

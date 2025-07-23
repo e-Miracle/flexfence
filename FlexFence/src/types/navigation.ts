@@ -2,6 +2,8 @@
 
 export type RootStackParamList = {
     Home: undefined;
-    Details: undefined;
+    Onboarding: undefined;
+    Onboard: undefined;
+
   };
   

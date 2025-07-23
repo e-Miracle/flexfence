@@ -13,7 +13,7 @@ import {
 
 interface ScreenContainerProps {
   children: React.ReactNode;
-  style?: StyleProp<ViewStyle>; // ✅ Correct type
+  style?: StyleProp<ViewStyle>;
   scrollable?: boolean;
 }
 
@@ -37,12 +37,9 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    flex: 1, // 👈 ensures full height
     backgroundColor: '#fff',
   },
 });
