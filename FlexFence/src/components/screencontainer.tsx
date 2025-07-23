@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    flex: 1, // 👈 ensures full height
+    flex: 1,
     backgroundColor: '#fff',
   },
 });

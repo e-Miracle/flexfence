@@ -8,6 +8,7 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAppColors } from '../hooks/useAppColors';
 
 interface ButtonProps {
   text: string;
@@ -24,18 +25,19 @@ const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
 }) => {
+  const colors = useAppColors();
   if (variant === 'skip') {
     return (
       <TouchableOpacity onPress={onPress} style={[styles.skipButton, style]}>
-        <Text style={[styles.skipText, textStyle]}>{text}</Text>
+        <Text style={[styles.skipText, textStyle,{color:colors.text}]}>{text}</Text>
       </TouchableOpacity>
     );
   }
 
   if (variant === 'outline') {
     return (
-      <TouchableOpacity onPress={onPress} style={[styles.outlineButton, style]}>
-        <Text style={[styles.outlineText, textStyle]}>{text}</Text>
+      <TouchableOpacity onPress={onPress} style={[styles.outlineButton, style,{borderColor:colors.primary}]}>
+        <Text style={[styles.outlineText, textStyle,{color:colors.text}]}>{text}</Text>
       </TouchableOpacity>
     );
   }
@@ -64,7 +66,6 @@ const styles = StyleSheet.create({
   skipText: {
     fontSize: 16,
     fontFamily: 'DMSans-Regular',
-    color: '#6B7280', // Tailwind gray-500
   },
   nextButton: {
     paddingHorizontal: 24,
@@ -88,13 +89,11 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: '#1F229A',
     alignItems: 'center',
   },
   outlineText: {
     fontSize: 16,
     fontFamily: 'DMSans-Bold',
-    color: '#1F229A',
     textAlign: 'center',
   },
 });

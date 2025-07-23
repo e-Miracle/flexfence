@@ -9,11 +9,11 @@ export const useAppColors = () => {
     ? {
         background: '#000000',
         text: '#ffffff',
-        primary: '#7b61ff',
+        primary: '#fff',
       }
     : {
         background: '#ffffff',
         text: '#000000',
-        primary: '#7b61ff',
+        primary: '#1F229A',
       };
 };

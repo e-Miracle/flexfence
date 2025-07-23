@@ -13,11 +13,12 @@ import OnboardScreen from './src/screens/OnboardScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { ThemeProvider, useTheme } from './src/constants/ThemeContext';
 import { useAppColors } from './src/hooks/useAppColors';
+import Button from './src/components/Button';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppContent = () => {
-  const { theme } = useTheme();
+  const { theme, setThemeMode } = useTheme();
   const colors = useAppColors();
 
   return (
@@ -35,9 +36,9 @@ const AppContent = () => {
         }}
       />
          {/* <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 16 }}>
-        <Button title="Light" onPress={() => setThemeMode('light')} />
-        <Button title="Dark" onPress={() => setThemeMode('dark')} />
-        <Button title="System" onPress={() => setThemeMode('system')} />
+        <Button text="Light" onPress={() => setThemeMode('light')} />
+        <Button text="Dark" onPress={() => setThemeMode('dark')} />
+        <Button text="System" onPress={() => setThemeMode('system')} />
       </View> */}
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" id={undefined}>

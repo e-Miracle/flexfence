@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../components/screencontainer';
 import Button from '../components/Button';
+import { useAppColors } from '../hooks/useAppColors';
 
 const { width } = Dimensions.get('window');
 
@@ -42,12 +43,12 @@ const OnboardScreen: React.FC = () => {
     const scrollX = useRef(new Animated.Value(0)).current;
     const flatListRef = useRef<FlatList>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const colors = useAppColors();
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
         { useNativeDriver: false }
     );
-
     const handleNext = () => {
         if (currentSlide < slides.length - 1) {
             flatListRef.current?.scrollToIndex({ index: currentSlide + 1 });
@@ -55,11 +56,15 @@ const OnboardScreen: React.FC = () => {
             console.log('Finished onboarding');
         }
     };
-
     const handleSkip = () => {
-        console.log('Skipped');
-    };
-
+        const targetOffset = 3 * width;
+        flatListRef.current?.scrollToOffset({
+          offset: targetOffset,
+          animated: true,
+        });  
+        setTimeout(() => setCurrentSlide(3), 800);
+      };
+      
     const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
         if (viewableItems.length > 0) {
             setCurrentSlide(viewableItems[0].index);
@@ -67,7 +72,7 @@ const OnboardScreen: React.FC = () => {
     }).current;
 
     return (
-        <ScreenContainer>
+        <ScreenContainer style={{backgroundColor:colors.background}}>
             <View style={styles.centered}>
                 <Image
                     source={require('../assets/logoh.png')}
@@ -75,8 +80,6 @@ const OnboardScreen: React.FC = () => {
                     resizeMode="contain"
                 />
             </View>
-
-            {/* Slider */}
             <Animated.FlatList
                 ref={flatListRef}
                 data={slides}
@@ -87,9 +90,9 @@ const OnboardScreen: React.FC = () => {
                 renderItem={({ item }) => (
                     <View style={styles.slide}>
                         <Image source={item.image} style={styles.bigimage} resizeMode="contain" />
-                        <Text style={styles.bigtext}>{item.title}</Text>
+                        <Text style={[styles.bigtext,{color:colors.text}]}>{item.title}</Text>
                         <View style={styles.subtextWrapper}>
-                            <Text style={styles.subtext}>{item.subtitle}</Text>
+                            <Text style={[styles.subtext,{color:colors.text}]}>{item.subtitle}</Text>
                         </View>
                     </View>
                 )}
@@ -97,42 +100,39 @@ const OnboardScreen: React.FC = () => {
                 onViewableItemsChanged={onViewableItemsChanged}
                 scrollEventThrottle={16}
             />
-
-{currentSlide !== slides.length - 1 && (
-  <View style={styles.pagination}>
-    {[0, 1, 2].map((i) => {
-      const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-
-      const dotWidth = scrollX.interpolate({
-        inputRange,
-        outputRange: [8, 16, 8],
-        extrapolate: 'clamp',
-      });
-
-      const dotOpacity =
-        i === 2
-          ? 1 // Force full opacity on the third slide's dot
-          : scrollX.interpolate({
-              inputRange,
-              outputRange: [0.4, 1, 0.4],
-              extrapolate: 'clamp',
-            });
-
-      return (
-        <Animated.View
-          key={i}
-          style={[
-            styles.dot,
-            {
-              width: dotWidth,
-              opacity: dotOpacity,
-            },
-          ]}
-        />
-      );
-    })}
-  </View>
-)}
+            {currentSlide !== slides.length - 1 && currentSlide !== 2 && (
+                <View style={styles.pagination}>
+                    {[0, 1, 2].map((i) => {
+                        const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+                        const dotWidth = scrollX.interpolate({
+                            inputRange,
+                            outputRange: [8, 16, 8],
+                            extrapolate: 'clamp',
+                        });
+                        const dotOpacity =
+                            i === 2
+                                ? 1 
+                                : scrollX.interpolate({
+                                    inputRange,
+                                    outputRange: [0.4, 1, 0.4],
+                                    extrapolate: 'clamp',
+                                });
+                        return (
+                            <Animated.View
+                                key={i}
+                                style={[
+                                    styles.dot,
+                                    {
+                                        backgroundColor:colors.primary,
+                                        width: dotWidth,
+                                        opacity: dotOpacity,
+                                    },
+                                ]}
+                            />
+                        );
+                    })}
+                </View>
+            )}
 
             {/* Buttons */}
             {currentSlide === slides.length - 1 ? (
@@ -204,7 +204,6 @@ const styles = StyleSheet.create({
     dot: {
         height: 8,
         borderRadius: 4,
-        backgroundColor: '#1F229A',
         marginHorizontal: 4,
     },
     fullButtonWrapper: {
