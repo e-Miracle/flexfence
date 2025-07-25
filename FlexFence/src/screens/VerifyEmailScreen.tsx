@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // ✅ Import navigation hook
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import ScreenContainer from '../components/screencontainer';
 import OtpInput from '../components/OtpInput';
 import styles from '../styles/VerifyEmailStyles';
 
-const VerifyPhoneScreen: React.FC = () => {
+const VerifyEmailScreen: React.FC = () => {
   const [secondsLeft, setSecondsLeft] = useState(300);
-  const navigation = useNavigation(); // ✅ Get navigation instance
+  const navigation = useNavigation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,24 +29,20 @@ const VerifyPhoneScreen: React.FC = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const handleSendToEmail = () => {
-    navigation.navigate('VerifyEmail' as never);
+  const handleSendToPhone = () => {
+    navigation.navigate('VerifyPhone' as never);
   };
 
   return (
     <ScreenContainer style={styles.container}>
       <Image
-        source={require('../assets/Phonee.png')}
+        source={require('../assets/Email.png')}
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.heading}>
-        Verify your{'\n'}Phone Number
-      </Text>
-      <Text style={styles.subtext}>
-        A six digit code has been sent to
-      </Text>
-      <Text style={styles.phone}>+668754322</Text>
+      <Text style={styles.heading}>Verify your Email</Text>
+      <Text style={styles.subtext}>A six digit code has been sent to</Text>
+      <Text style={styles.Email}>henrynzekwe25@gmail.com</Text>
 
       <OtpInput />
 
@@ -57,12 +53,12 @@ const VerifyPhoneScreen: React.FC = () => {
       <Text style={styles.resendContainer}>
         Didn’t get the OTP?{' '}
         <Text style={styles.resendAction}>Resend</Text> or{' '}
-        <TouchableOpacity onPress={handleSendToEmail}>
-          <Text style={styles.resendAction}>Send to Email</Text>
+        <TouchableOpacity onPress={handleSendToPhone}>
+          <Text style={styles.resendAction}>Send to Phone number</Text>
         </TouchableOpacity>
       </Text>
     </ScreenContainer>
   );
 };
 
-export default VerifyPhoneScreen;
+export default VerifyEmailScreen;

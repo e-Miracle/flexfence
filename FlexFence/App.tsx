@@ -16,6 +16,9 @@ import { useAppColors } from './src/hooks/useAppColors';
 import Button from './src/components/Button';
 import RegScreen from './src/screens/RegScreen';
 import VerifyPhoneScreen from './src/screens/VerifyPhoneScreen';
+import VerifyEmailScreen from './src/screens/VerifyEmailScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,7 +52,9 @@ const AppContent = () => {
           <Stack.Screen name="Onboard" component={OnboardScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Reg" component={RegScreen} options={{ headerShown: false }} />
           <Stack.Screen name="VerifyPhone" component={VerifyPhoneScreen} options={{ headerShown: false }} />
-
+          <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

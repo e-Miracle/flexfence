@@ -8,20 +8,29 @@ import Button from '../components/Button';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { useAppColors } from '../hooks/useAppColors';
-type RegScreenProps = {
-    navigation: NativeStackNavigationProp<RootStackParamList, 'VerifyPhone'>;
-  };
-  
-const RegScreen: React.FC<RegScreenProps> = ({navigation}) => {
+type LoginScreenProps = {
+    navigation: NativeStackNavigationProp<RootStackParamList, 'Reg'>;
+};
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const colors = useAppColors();
 
     return (
-        <ScreenContainer style={{  paddingHorizontal: 15, paddingVertical: 30, backgroundColor: colors.background }}>
-            <HeadingText>Create Account</HeadingText>
+        <ScreenContainer style={{ paddingHorizontal: 15, paddingVertical: 30, backgroundColor: colors.background }}>
+            <View style={styles.centered}>
+                <Image
+                    source={require('../assets/logoh.png')}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
+            </View>
+            <HeadingText>Welcome back!</HeadingText>
+            <Text style={{ textAlign: 'center', fontFamily: 'DMSans-Regular', fontSize: 18 }}>Login to continue</Text>
             <View style={styles.authSection}>
-                <Text style={[styles.continueText,{color:colors.text}]}>Continue with</Text>
+                <Text style={[styles.continueText, { color: colors.text }]}>Continue with</Text>
+
                 <View style={styles.imageRow}>
                     <View style={styles.imageWrapper}>
                         <Image
@@ -36,54 +45,33 @@ const RegScreen: React.FC<RegScreenProps> = ({navigation}) => {
                         />
                     </View>
                 </View>
-                <Text style={[styles.continueText, {color:colors.text}]}>Or</Text>
+                <Text style={[styles.continueText, , { color: colors.text }]}>Or</Text>
 
             </View>
-            <InputField placeholder="Full name" spacing={16} />
             <InputField placeholder="Email" spacing={16} />
-            <InputField
-                spacing={16}
-                variant="phone"
-                placeholder="Enter phone number"
-                phoneValue={phone}
-                onChangePhoneNumber={setPhone}
-            />
             <InputField
                 spacing={16}
                 variant="password"
                 placeholder="Password"
             />
-            <InputField
-                spacing={16}
-                variant="password"
-                placeholder="Confirm password"
-            />
-            <View style={styles.checkboxContainer}>
-                <TouchableOpacity
-                    onPress={() => setIsChecked((prev) => !prev)}
-                    style={styles.checkbox}
-                >
-                    <Ionicons
-                        name={isChecked ? 'checkbox' : 'square-outline'}
-                        size={24}
-                        color={isChecked ? '#007bff' : '#666666'}
-                    />
-                </TouchableOpacity>
 
-                <Text style={[styles.checkboxText,{color:colors.reggy}]}>
-                    I agree to the Flexfence’s<Text style={styles.link}> Terms of Service</Text> and <Text style={styles.link}>Privacy Policy</Text>
+            <TouchableOpacity onPress={() => console.log('forgot')}>
+                <Text style={[styles.forgotPassword, { color: colors.primary }]}>
+                    Forgot Password?
                 </Text>
-            </View>
-            <View style={{marginTop:'auto'}}>
-                <Button text="Create Account" variant="full" onPress={() => navigation.navigate('VerifyPhone')} />
+            </TouchableOpacity>
+
+            <View style={{ marginTop: '20%' }}>
+                <Button text="Login" variant="full" onPress={() => navigation.navigate('Welcome')} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
                     <Text style={{ color: colors.reggy, fontFamily: 'DMSans-Regular' }}>
-                        Already have an account?{' '}
+                        Dont have an account?{' '}
                     </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.link}>Login</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Reg')}>
+                        <Text style={styles.link}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
         </ScreenContainer>
     );
@@ -93,6 +81,13 @@ const styles = StyleSheet.create({
     authSection: {
         marginTop: 20,
         alignItems: 'center',
+    },
+    centered: {
+        alignItems: 'center',
+    },
+    image: {
+        width: 150,
+        height: 60,
     },
     continueText: {
         fontSize: 16,
@@ -121,9 +116,11 @@ const styles = StyleSheet.create({
         marginTop: 16,
         gap: 10,
     },
+
     checkbox: {
         padding: 4,
     },
+
     checkboxText: {
         flex: 1,
         fontSize: 14,
@@ -133,7 +130,14 @@ const styles = StyleSheet.create({
     link: {
         color: '#007bff',
     },
+    forgotPassword: {
+        alignSelf: 'flex-start',
+        marginTop: -10,
+        marginBottom: 20,
+        fontSize: 14,
+        fontFamily: 'DMSans-Regular',
+    },
 
 });
 
-export default RegScreen;
+export default LoginScreen;

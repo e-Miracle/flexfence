@@ -6,5 +6,9 @@ export type RootStackParamList = {
     Onboard: undefined;
     Reg: undefined;
     VerifyPhone: undefined
+    VerifyEmail: undefined
+    Login: undefined
+    Welcome: undefined
+
   };
   
