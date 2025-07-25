@@ -9,6 +9,7 @@ import {
   StatusBar,
   ViewStyle,
   StyleProp,
+  Dimensions,
 } from 'react-native';
 
 interface ScreenContainerProps {
@@ -16,6 +17,8 @@ interface ScreenContainerProps {
   style?: StyleProp<ViewStyle>;
   scrollable?: boolean;
 }
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const ScreenContainer: React.FC<ScreenContainerProps> = ({
   children,
@@ -26,7 +29,13 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Container style={[styles.container, style]}>
+      <Container
+        contentContainerStyle={[
+          scrollable && styles.scrollContent,
+          { minHeight: SCREEN_HEIGHT }, // 👈 Apply minHeight dynamically
+        ]}
+        style={[styles.container, style]}
+      >
         {children}
       </Container>
     </SafeAreaView>
@@ -37,10 +46,14 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  scrollContent: {
+    padding: 20,
   },
 });
 

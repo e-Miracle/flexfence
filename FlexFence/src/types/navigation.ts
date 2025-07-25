@@ -4,6 +4,7 @@ export type RootStackParamList = {
     Home: undefined;
     Onboarding: undefined;
     Onboard: undefined;
-
+    Reg: undefined;
+    VerifyPhone: undefined
   };
   

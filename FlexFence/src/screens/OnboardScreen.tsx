@@ -13,7 +13,8 @@ import {
 import ScreenContainer from '../components/screencontainer';
 import Button from '../components/Button';
 import { useAppColors } from '../hooks/useAppColors';
-
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../types/navigation';
 const { width } = Dimensions.get('window');
 
 const slides = [
@@ -38,8 +39,11 @@ const slides = [
         subtitle: 'Caters to businesses, events\norganizers and gig workers.',
     },
 ];
-
-const OnboardScreen: React.FC = () => {
+type OnboardScreenProps = {
+    navigation: NativeStackNavigationProp<RootStackParamList, 'Reg'>;
+  };
+  
+const OnboardScreen: React.FC<OnboardScreenProps>  = ({ navigation }) => {
     const scrollX = useRef(new Animated.Value(0)).current;
     const flatListRef = useRef<FlatList>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -100,7 +104,7 @@ const OnboardScreen: React.FC = () => {
                 onViewableItemsChanged={onViewableItemsChanged}
                 scrollEventThrottle={16}
             />
-            {currentSlide !== slides.length - 1 && currentSlide !== 2 && (
+            {currentSlide !== slides.length - 1 && (
                 <View style={styles.pagination}>
                     {[0, 1, 2].map((i) => {
                         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
@@ -137,8 +141,8 @@ const OnboardScreen: React.FC = () => {
             {/* Buttons */}
             {currentSlide === slides.length - 1 ? (
                 <View style={styles.fullButtonWrapper}>
-                    <Button text="Get Started" variant="full" onPress={() => console.log('Get Started')} />
-                    <Button text="Login" variant="outline" onPress={() => console.log('Login')} />
+                    <Button text="Get Started" variant="full" onPress={() => navigation.navigate('Reg')} />
+                    <Button text="Login" variant="outline" onPress={() => console.log('login')} />
                 </View>
             ) : (
                 <View style={styles.buttonContainer}>
