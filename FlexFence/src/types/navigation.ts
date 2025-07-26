@@ -9,6 +9,8 @@ export type RootStackParamList = {
     VerifyEmail: undefined
     Login: undefined
     Welcome: undefined
+    Verify: undefined
+    Invitation: undefined
 
   };
   

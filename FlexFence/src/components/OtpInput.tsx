@@ -1,15 +1,18 @@
 // src/components/OtpInput.tsx
 import React, { useRef, useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import { useAppColors } from '../hooks/useAppColors';
 
 interface OtpInputProps {
   length?: number;
   onChange?: (otp: string[]) => void;
+  onCodeFilled?: (code: string) => void;
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onChange }) => {
+const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onChange, onCodeFilled }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(''));
   const inputs = useRef<(TextInput | null)[]>([]);
+  const colors = useAppColors();
 
   const handleChange = (text: string, index: number) => {
     const newOtp = [...otp];
@@ -18,6 +21,11 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onChange }) => {
 
     if (onChange) {
       onChange(newOtp);
+    }
+
+    const isComplete = newOtp.every((digit) => digit !== '');
+    if (isComplete && onCodeFilled) {
+      onCodeFilled(newOtp.join(''));
     }
 
     if (text && index < length - 1) {
@@ -30,7 +38,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onChange }) => {
       {otp.map((digit, index) => (
         <TextInput
           key={index}
-          style={styles.otpBox}
+          style={[styles.otpBox, { color: colors.text }]}
           keyboardType="number-pad"
           maxLength={1}
           value={digit}
@@ -58,7 +66,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     borderRadius: 8,
-    color: '#000',
     fontFamily: 'DMSans-Bold',
   },
 });

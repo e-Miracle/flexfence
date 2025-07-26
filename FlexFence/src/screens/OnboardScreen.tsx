@@ -15,6 +15,7 @@ import Button from '../components/Button';
 import { useAppColors } from '../hooks/useAppColors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import { useTheme } from '../constants/ThemeContext';
 const { width } = Dimensions.get('window');
 
 const slides = [
@@ -48,6 +49,12 @@ const OnboardScreen: React.FC<OnboardScreenProps>  = ({ navigation }) => {
     const flatListRef = useRef<FlatList>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const colors = useAppColors();
+    const { theme } = useTheme();
+
+    const logoSource =
+        theme === 'dark'
+            ? require('../assets/logohh.png')
+            : require('../assets/logoh.png');
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -78,11 +85,12 @@ const OnboardScreen: React.FC<OnboardScreenProps>  = ({ navigation }) => {
     return (
         <ScreenContainer style={{backgroundColor:colors.background}}>
             <View style={styles.centered}>
-                <Image
-                    source={require('../assets/logoh.png')}
+            <Image
+                    source={logoSource}
                     style={styles.image}
                     resizeMode="contain"
                 />
+
             </View>
             <Animated.FlatList
                 ref={flatListRef}

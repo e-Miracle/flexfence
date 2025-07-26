@@ -3,28 +3,34 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import HeadingText from '../components/HeadingText';
 import ScreenContainer from '../components/screencontainer';
 import InputField from '../components/InputField';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Button from '../components/Button';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { useAppColors } from '../hooks/useAppColors';
+import { useTheme } from '../constants/ThemeContext';
 type LoginScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Reg'>;
 };
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-    const [phone, setPhone] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
+
     const colors = useAppColors();
+    const { theme } = useTheme();
+
+    const logoSource =
+        theme === 'dark'
+            ? require('../assets/logohh.png')
+            : require('../assets/logoh.png');
 
     return (
         <ScreenContainer style={{ paddingHorizontal: 15, paddingVertical: 30, backgroundColor: colors.background }}>
             <View style={styles.centered}>
                 <Image
-                    source={require('../assets/logoh.png')}
+                    source={logoSource}
                     style={styles.image}
                     resizeMode="contain"
                 />
+
             </View>
             <HeadingText>Welcome back!</HeadingText>
             <Text style={{ textAlign: 'center', fontFamily: 'DMSans-Regular', fontSize: 18 }}>Login to continue</Text>

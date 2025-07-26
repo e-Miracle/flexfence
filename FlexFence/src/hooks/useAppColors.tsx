@@ -7,7 +7,7 @@ export const useAppColors = () => {
 
   return theme === 'dark'
     ? {
-        background: '#000000',
+        background: '#131313',
         text: '#ffffff',
         primary: '#fff',
         reggy:'#fff'

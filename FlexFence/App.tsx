@@ -19,6 +19,8 @@ import VerifyPhoneScreen from './src/screens/VerifyPhoneScreen';
 import VerifyEmailScreen from './src/screens/VerifyEmailScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
+import VerifyScreen from './src/screens/VerifySuccessScreen';
+import InvitationScreen from './src/screens/InvitationScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -55,6 +57,9 @@ const AppContent = () => {
           <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Verify" component={VerifyScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Invitation" component={InvitationScreen} options={{ headerShown: false }} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </>
