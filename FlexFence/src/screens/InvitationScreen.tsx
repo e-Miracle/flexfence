@@ -48,13 +48,10 @@ const InvitationScreen: React.FC<InvitationScreenProps> = ({ navigation }) => {
                 <View
                     style={{
                         marginTop: 20,
-                        backgroundColor: colors.text,
+                        backgroundColor:' #fff',
                         borderRadius: 10,
-                        shadowColor: '#000',
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.1,
-                        shadowRadius: 4,
-                        elevation: 4,
+                        borderBottomWidth:1,
+                        borderColor:'#ccc',
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
