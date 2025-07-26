@@ -32,7 +32,6 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
       <Container
         contentContainerStyle={[
           scrollable && styles.scrollContent,
-          { minHeight: SCREEN_HEIGHT }, // 👈 Apply minHeight dynamically
         ]}
         style={[styles.container, style]}
       >

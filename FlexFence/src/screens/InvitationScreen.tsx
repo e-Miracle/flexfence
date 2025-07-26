@@ -55,7 +55,7 @@ const InvitationScreen: React.FC<InvitationScreenProps> = ({ navigation }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        paddingHorizontal: 16, // ✅ Added horizontal padding
+                        paddingHorizontal: 16,
                         paddingVertical: 12,
                         width: '100%',
                     }}

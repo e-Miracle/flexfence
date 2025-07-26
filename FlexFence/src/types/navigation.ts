@@ -11,6 +11,6 @@ export type RootStackParamList = {
     Welcome: undefined
     Verify: undefined
     Invitation: undefined
-
+    Dashboard: undefined
   };
   

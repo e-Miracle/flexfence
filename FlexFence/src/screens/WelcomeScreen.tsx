@@ -35,7 +35,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
                 <Text style={[styles.welcomeSubtitle, { color: colors.text }]}>
                     Track attendance seamlessly with geofence-based locations and QR code scanning.
                 </Text>
-                <Button style={{width:'100%'}} text="Start" variant="full" onPress={() => navigation.navigate('Welcome')} />
+                <Button style={{width:'100%'}} text="Start" variant="full" onPress={() => navigation.navigate('Dashboard')} />
 
             </View>
 
