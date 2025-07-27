@@ -28,7 +28,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 <Image
                     source={logoSource}
                     style={styles.image}
-                    resizeMode="contain"
                 />
 
             </View>
@@ -93,7 +92,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 150,
-        height: 60,
+        height: 20,
+        marginBottom: 10
     },
     continueText: {
         fontSize: 16,

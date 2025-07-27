@@ -88,7 +88,6 @@ const OnboardScreen: React.FC<OnboardScreenProps>  = ({ navigation }) => {
             <Image
                     source={logoSource}
                     style={styles.image}
-                    resizeMode="contain"
                 />
 
             </View>
@@ -172,8 +171,9 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 150,
-        height: 150,
+        height: 20,
         marginBottom: 10,
+        marginTop:20
     },
     slide: {
         width,
