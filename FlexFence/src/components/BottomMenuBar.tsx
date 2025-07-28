@@ -8,7 +8,7 @@ const BottomMenuBar = ({ navigation }) => {
     <View style={styles.container}>
       {/* Home */}
       <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.menuItem}>
-          <MaterialIcons name="home" size={27} color="black" />
+          <MaterialIcons name="home" size={24} color="black" />
         <Text style={[styles.label, { color: '#0575E6' }]}>Home</Text>
       </TouchableOpacity>
 

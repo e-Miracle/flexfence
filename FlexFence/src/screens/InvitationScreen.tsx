@@ -29,7 +29,6 @@ const InvitationScreen: React.FC<InvitationScreenProps> = ({ navigation }) => {
                 <Image
                     source={logoSource}
                     style={styles.image}
-                    resizeMode="contain"
                 />
 
             </View>
@@ -126,7 +125,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 150,
-        height: 60,
+        height: 20,
+        marginBottom: 10
     },
     imagetwo: {
         width: '100%',

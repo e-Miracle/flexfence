@@ -6,9 +6,11 @@ import {
   ViewStyle,
   TextStyle,
   GestureResponderEvent,
+  View,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppColors } from '../hooks/useAppColors';
+import { ReactNode } from 'react';
 
 interface ButtonProps {
   text: string;
@@ -16,7 +18,10 @@ interface ButtonProps {
   variant?: 'skip' | 'next' | 'full' | 'outline';
   style?: ViewStyle;
   textStyle?: TextStyle;
+  icon?: ReactNode; // 👈 Accepts JSX icon element
+  iconPosition?: 'left' | 'right'; // Optional, default to left
 }
+
 
 const Button: React.FC<ButtonProps> = ({
   text,
@@ -24,24 +29,43 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'next',
   style,
   textStyle,
+  icon,
+  iconPosition = 'left',
 }) => {
   const colors = useAppColors();
+
+  const renderContent = (textColor: string = '#fff') => (
+    <View
+      style={[
+        styles.contentWrapper,
+        iconPosition === 'right' && { flexDirection: 'row-reverse' },
+      ]}
+    >
+      {icon && <View style={styles.iconWrapper}>{icon}</View>}
+      <Text style={[styles.nextText, textStyle, { color: textColor }]}>{text}</Text>
+    </View>
+  );
+  
   if (variant === 'skip') {
     return (
       <TouchableOpacity onPress={onPress} style={[styles.skipButton, style]}>
-        <Text style={[styles.skipText, textStyle,{color:colors.text}]}>{text}</Text>
+        <Text style={[styles.skipText, textStyle, { color: colors.text }]}>{text}</Text>
       </TouchableOpacity>
     );
   }
 
   if (variant === 'outline') {
     return (
-      <TouchableOpacity onPress={onPress} style={[styles.outlineButton, style,{borderColor:colors.primary}]}>
-        <Text style={[styles.outlineText, textStyle,{color:colors.text}]}>{text}</Text>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.outlineButton, style, { borderColor: colors.primary }]}
+      >
+        {renderContent(colors.primary)} {/* 👈 pass correct text color */}
       </TouchableOpacity>
     );
   }
-
+  
+  
   const gradientStyle = variant === 'full' ? styles.fullButton : styles.nextButton;
 
   return (
@@ -52,7 +76,7 @@ const Button: React.FC<ButtonProps> = ({
         end={{ x: 1, y: 1 }}
         style={gradientStyle}
       >
-        <Text style={[styles.nextText, textStyle]}>{text}</Text>
+        {renderContent()}
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -96,6 +120,17 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans-Bold',
     textAlign: 'center',
   },
+  contentWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  iconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
 });
 
 export default Button;

@@ -22,6 +22,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import VerifyScreen from './src/screens/VerifySuccessScreen';
 import InvitationScreen from './src/screens/InvitationScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
+import SelfieScreen from './src/screens/SelfieScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -61,6 +62,8 @@ const AppContent = () => {
           <Stack.Screen name="Verify" component={VerifyScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Invitation" component={InvitationScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Selfie" component={SelfieScreen} options={{ headerShown: false }} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </>

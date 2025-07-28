@@ -13,14 +13,22 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera for selfie verification."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/purplelogo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "CAMERA",
+        "CAMERA"
+      ],
+      "package": "com.henry225.FlexFence"
     },
     "web": {
       "favicon": "./assets/favicon.png"
