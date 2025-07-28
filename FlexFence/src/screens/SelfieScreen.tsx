@@ -6,27 +6,30 @@ import {
     Dimensions,
     TouchableOpacity,
     ActivityIndicator,
+    Animated,
 } from 'react-native';
 import {
     CameraView,
     useCameraPermissions,
     CameraType,
-    CameraViewRef,
 } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import TopBar from '../components/TopBar';
 import ScreenContainer from '../components/screencontainer';
 import { useAppColors } from '../hooks/useAppColors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
+const DURATION = 20 * 1000; // 50 seconds
 
 const SelfieScreen: React.FC = () => {
     const navigation = useNavigation();
     const cameraRef = useRef<CameraView>(null);
-    
     const [facing, setFacing] = useState<CameraType>('front');
     const [permission, requestPermission] = useCameraPermissions();
     const [isLoading, setIsLoading] = useState(false);
+    const progressAnim = useRef(new Animated.Value(0)).current;
+    const [percent, setPercent] = useState(0);
     const colors = useAppColors();
 
     useEffect(() => {
@@ -35,15 +38,42 @@ const SelfieScreen: React.FC = () => {
         }
     }, [permission]);
 
+    useEffect(() => {
+        if (!permission?.granted) return;
+
+        // Start animation to progress bar
+        Animated.timing(progressAnim, {
+            toValue: 1,
+            duration: DURATION,
+            useNativeDriver: false,
+        }).start();
+
+        // Attach animated listener to update percent state
+        const listenerId = progressAnim.addListener(({ value }) => {
+            setPercent(Math.round(value * 100));
+        });
+
+        // Auto trigger photo after animation completes
+        const timer = setTimeout(() => {
+            takePicture();
+        }, DURATION);
+
+        // Cleanup
+        return () => {
+            clearTimeout(timer);
+            progressAnim.removeListener(listenerId);
+        };
+    }, [permission]);
+
     const toggleCameraFacing = () => {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     };
 
     const takePicture = async () => {
-        if (cameraRef.current) {
+        if (cameraRef.current && !isLoading) {
             setIsLoading(true);
             try {
-                const photo = await cameraRef.current?.takePictureAsync({ base64: true });
+                const photo = await cameraRef.current.takePictureAsync({ base64: true });
                 console.log('📸 Captured selfie:', photo.uri);
 
                 setTimeout(() => {
@@ -76,34 +106,54 @@ const SelfieScreen: React.FC = () => {
         );
     }
 
+    const progressWidth = progressAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0%', '100%'],
+    });
+
     return (
         <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
             <TopBar title="Selfie Verification" onBack={() => navigation.goBack()} />
-            <Text style={{ color: colors.primary, fontFamily: 'DMSans-Regular', textAlign: 'center', marginTop: 20 }}>Take selfie to verify your{'\n'}identity/join fence</Text>
+            <Text style={{ color: colors.primary, fontFamily: 'DMSans-Regular', textAlign: 'center', marginTop: 40 }}>
+                Take selfie to verify your{'\n'}identity/join fence
+            </Text>
+
             <View style={styles.cameraWrapper}>
                 <CameraView
                     ref={cameraRef}
-                    style={styles.camera}
+                    style={[styles.camera, { borderColor: colors.primary }]}
                     facing={facing}
                 />
-
             </View>
 
-            <View style={styles.captureContainer}>
+            <Text style={[styles.progressText, { color: colors.primary }]}>
+                {percent}%
+            </Text>
+
+            <Text style={{ color: colors.text, fontFamily: 'DMSans-Regular', textAlign: 'center', marginVertical: 5 }}>
+                Verifying your face...
+            </Text>
+
+            <View style={styles.progressBarWrapper}>
+                <Animated.View style={[styles.progressBar, { width: progressWidth }]}>
+                    <LinearGradient
+                        colors={['#1F229A', '#00BFFF']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={styles.gradientFill}
+                    />
+                </Animated.View>
+            </View>
+
+            <View style={[styles.captureContainer, {backgroundColor: colors.background}]}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color="#1F229A" />
+                    <ActivityIndicator size="large" color={colors.primary} />
                 ) : (
                     <TouchableOpacity
-                        onPress={takePicture}
                         style={[styles.captureButton, { backgroundColor: '#1F229A' }]}
                     >
-                        <Text style={styles.captureText}>Capture</Text>
                     </TouchableOpacity>
                 )}
-
-                <TouchableOpacity style={styles.captureButton} onPress={toggleCameraFacing}>
-                    <Text>Switch</Text>
-                </TouchableOpacity>
             </View>
         </ScreenContainer>
     );
@@ -135,20 +185,37 @@ const styles = StyleSheet.create({
         width: 200,
         borderRadius: 130,
         overflow: 'hidden',
+        borderWidth: 3,
+        marginBottom:20
+    },
+    progressText: {
+        textAlign: 'center',
+        fontSize: 25,
+        fontWeight: '600',
+        marginTop: 14,
+    },
+    progressBarWrapper: {
+        width: '70%',
+        height: 20,
+        backgroundColor: '#eee',
+        borderRadius: 10,
+        overflow: 'hidden',
+        alignSelf: 'center',
+        marginTop: 14,
+    },
+    progressBar: {
+        height: '100%',
+    },
+    gradientFill: {
+        height: '100%',
+        width: '100%',
     },
     captureContainer: {
         alignItems: 'center',
         paddingVertical: 20,
-        backgroundColor: '#fff',
     },
     captureButton: {
-        width: 140,
-        height: 50,
-        borderRadius: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 10,
-        backgroundColor: '#ccc',
+display: 'none'
     },
     captureText: {
         color: '#fff',

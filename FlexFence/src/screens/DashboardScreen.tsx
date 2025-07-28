@@ -9,12 +9,15 @@ import TrackedHoursChart from '../components/TrackedHoursChart';
 import BottomMenuBar from '../components/BottomMenuBar';
 import DashboardHeader from '../components/DashboardHeader';
 import FloatingMenu from '../components/FloatingMenu';
+import { useAppColors } from '../hooks/useAppColors';
 
 const DashboardScreen: React.FC = () => {
   const navigation = useNavigation();
+  const colors = useAppColors();
+
 
   return (
-    <ScreenContainer style={{ padding: 15, flex: 1 }}>
+    <ScreenContainer style={{ padding: 15, flex: 1, backgroundColor:colors.background }}>
       <ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}

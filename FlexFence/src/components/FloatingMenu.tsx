@@ -36,8 +36,8 @@ const FloatingMenu: React.FC = () => {
                 text="Scan QR Code"
                 variant="next"
                 onPress={() => {
-                  closeMenu();
-                  console.log('Scan QR Code Pressed');
+                  navigation.navigate('QrCode');
+
                 }}
                 style={styles.menuItem}
                 textStyle={{ fontSize: 10 }}

@@ -13,5 +13,6 @@ export type RootStackParamList = {
     Invitation: undefined
     Dashboard: undefined
     Selfie: undefined
+    QrCode: undefined
   };
   

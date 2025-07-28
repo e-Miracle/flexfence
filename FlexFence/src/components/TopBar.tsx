@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useAppColors } from '../hooks/useAppColors';
 
 interface TopBarProps {
   title: string;
@@ -9,12 +10,14 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({ title, onBack }) => {
+  const colors = useAppColors();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
-        <Feather name="chevron-left" size={24} color="#1F229A" />
+        <Feather name="chevron-left" size={24} color={colors.text} />
       </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, {color:colors.text}]}>{title}</Text>
       {/* Placeholder for spacing symmetry */}
       <View style={{ width: 24 }} />
     </View>
@@ -30,7 +33,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderBottomWidth: 0.5,
     borderColor: '#ddd',
-    backgroundColor: '#fff',
   },
   backButton: {
     padding: 4,
@@ -38,7 +40,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1F229A',
   },
 });
 
