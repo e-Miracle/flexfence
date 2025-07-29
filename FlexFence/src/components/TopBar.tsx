@@ -15,9 +15,9 @@ const TopBar: React.FC<TopBarProps> = ({ title, onBack }) => {
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
-        <Feather name="chevron-left" size={24} color={colors.text} />
+        <Feather name="chevron-left" size={24} color={colors.primary} />
       </TouchableOpacity>
-      <Text style={[styles.title, {color:colors.text}]}>{title}</Text>
+      <Text style={[styles.title, {color:colors.primary}]}>{title}</Text>
       {/* Placeholder for spacing symmetry */}
       <View style={{ width: 24 }} />
     </View>

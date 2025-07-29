@@ -14,5 +14,6 @@ export type RootStackParamList = {
     Dashboard: undefined
     Selfie: undefined
     QrCode: undefined
+    LinkedOrganization: undefined
   };
   

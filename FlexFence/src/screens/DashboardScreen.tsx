@@ -25,7 +25,7 @@ const DashboardScreen: React.FC = () => {
         <DashboardHeader />
         <TimeTracker />
         <FenceMap />
-        <LinkedOrganizations />
+        <LinkedOrganizations/>
         <TrackedHoursChart />
       </ScrollView>
 

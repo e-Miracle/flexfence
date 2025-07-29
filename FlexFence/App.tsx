@@ -24,6 +24,7 @@ import InvitationScreen from './src/screens/InvitationScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import SelfieScreen from './src/screens/SelfieScreen';
 import ScanQRCodeScreen from './src/screens/ScanQRCodeScreen';
+import LinkedOrganizationScreen from './src/screens/LinkedOrganizationScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -65,6 +66,7 @@ const AppContent = () => {
           <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Selfie" component={SelfieScreen} options={{ headerShown: false }} />
           <Stack.Screen name="QrCode" component={ScanQRCodeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="LinkedOrganization" component={LinkedOrganizationScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
