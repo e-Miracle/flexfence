@@ -25,6 +25,13 @@ import DashboardScreen from './src/screens/DashboardScreen';
 import SelfieScreen from './src/screens/SelfieScreen';
 import ScanQRCodeScreen from './src/screens/ScanQRCodeScreen';
 import LinkedOrganizationScreen from './src/screens/LinkedOrganizationScreen';
+import TimeClockScreen from './src/screens/TimeClockScreen';
+import MoreScreen from './src/screens/MoreScreen';
+import AccountSettingsScreen from './src/screens/AccountSettingScreen';
+import GeofenceSettings from './src/screens/GeofenceScreen';
+import HelpScreen from './src/screens/HelpScreen';
+import AboutScreen from './src/screens/AboutScreen';
+import InitiateKycScreen from './src/screens/InitiateKycScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -67,6 +74,13 @@ const AppContent = () => {
           <Stack.Screen name="Selfie" component={SelfieScreen} options={{ headerShown: false }} />
           <Stack.Screen name="QrCode" component={ScanQRCodeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="LinkedOrganization" component={LinkedOrganizationScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="TimeClock" component={TimeClockScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="More" component={MoreScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Geofence" component={GeofenceSettings} options={{ headerShown: false }} />
+          <Stack.Screen name="Help" component={HelpScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="About" component={AboutScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="InitiateKyc" component={InitiateKycScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>

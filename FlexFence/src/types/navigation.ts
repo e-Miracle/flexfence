@@ -15,5 +15,13 @@ export type RootStackParamList = {
     Selfie: undefined
     QrCode: undefined
     LinkedOrganization: undefined
+    TimeClock: undefined
+    AccountSettings: undefined
+    More: undefined
+    Geofence: undefined
+    InitiateKyc: undefined
+    Help: undefined
+    About: undefined
+
   };
   

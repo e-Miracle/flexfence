@@ -2,20 +2,23 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAppColors } from '../hooks/useAppColors';
 
 const BottomMenuBar = ({ navigation }) => {
+  const colors = useAppColors();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor:colors.background}]}>
       {/* Home */}
       <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.menuItem}>
-          <MaterialIcons name="home" size={24} color="black" />
-        <Text style={[styles.label, { color: '#0575E6' }]}>Home</Text>
+          <MaterialIcons name="home" size={24} color={colors.text}/>
+        <Text style={[styles.label, { color: colors.text }]}>Home</Text>
       </TouchableOpacity>
 
       {/* Time Clock */}
       <TouchableOpacity onPress={() => navigation.navigate('TimeClock')} style={styles.menuItem}>
-        <MaterialIcons name="timer" size={24} color="black" />
-        <Text style={styles.label}>Time clock</Text>
+        <MaterialIcons name="timer" size={24} color={colors.text} />
+        <Text style={[styles.label, { color: colors.text }]}>Time clock</Text>
       </TouchableOpacity>
 
       {/* Clock In/Out */}
@@ -23,24 +26,24 @@ const BottomMenuBar = ({ navigation }) => {
         <LinearGradient colors={['#1FA2FF', '#12D8FA']} style={styles.iconCircle}>
           <MaterialIcons name="play-arrow" size={20} color="white" />
         </LinearGradient>
-        <Text style={styles.label}>Clock in/out</Text>
+        <Text style={[styles.label, { color: colors.text }]}>Clock in/out</Text>
       </TouchableOpacity>
 
       {/* Notification */}
       <TouchableOpacity onPress={() => navigation.navigate('Notifications')} style={styles.menuItem}>
         <View style={styles.notificationIcon}>
-          <Feather name="bell" size={24} color="black" />
+          <Feather name="bell" size={24} color={colors.text} />
           <View style={styles.badge}>
             <Text style={styles.badgeText}>1</Text>
           </View>
         </View>
-        <Text style={styles.label}>Notification</Text>
+        <Text style={[styles.label, { color: colors.text }]}>Notification</Text>
       </TouchableOpacity>
 
       {/* More */}
       <TouchableOpacity onPress={() => navigation.navigate('More')} style={styles.menuItem}>
-        <Entypo name="dots-three-horizontal" size={24} color="black" />
-        <Text style={styles.label}>More</Text>
+        <Entypo name="dots-three-horizontal" size={24} color={colors.text} />
+        <Text style={[styles.label, { color: colors.text }]}>More</Text>
       </TouchableOpacity>
     </View>
   );
@@ -48,13 +51,19 @@ const BottomMenuBar = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 30,
     borderTopColor: '#ddd',
     borderTopWidth: 1,
+    zIndex: 10,
   },
+  
   menuItem: {
     alignItems: 'center',
   },

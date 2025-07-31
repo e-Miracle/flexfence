@@ -10,13 +10,15 @@ export const useAppColors = () => {
         background: '#131313',
         text: '#ffffff',
         primary: '#fff',
-        reggy:'#fff'
+        reggy:'#fff',
+        card:'#131313'
       }
     : {
-        background: '#ffffff',
+        background: '#fafafa',
         text: '#000000',
         primary: '#1F229A',
-        reggy:'#666666'
+        reggy:'#666666',
+        card:'#fff'
 
       };
 };

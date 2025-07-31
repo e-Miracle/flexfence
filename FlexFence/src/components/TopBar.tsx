@@ -26,13 +26,23 @@ const TopBar: React.FC<TopBarProps> = ({ title, onBack }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 56,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     borderBottomWidth: 0.5,
     borderColor: '#ddd',
+    zIndex: 10, // Ensures it's above other components
+    elevation: 4, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   backButton: {
     padding: 4,
