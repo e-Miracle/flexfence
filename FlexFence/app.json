@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/purplelogo.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./src/assets/purplelogo.png",
       "resizeMode": "contain",
@@ -26,9 +26,9 @@
       "edgeToEdgeEnabled": true,
       "permissions": [
         "CAMERA",
-        "CAMERA"
+        "CAMERA_ROLL"
       ],
-      "package": "com.henry225.FlexFence"
+      "package": "com.flexfence.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
