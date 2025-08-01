@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SignOutModal from '../components/SignOutModal'; // 👈 import modal
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,6 +17,7 @@ type OnboardScreenProps = {
 
 const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => {
     const colors = useAppColors();
+    const [signOutVisible, setSignOutVisible] = useState(false);
 
     const settings = [
         {
@@ -28,7 +30,7 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
         },
         {
             title: 'Change password',
-            onPress: () => console.log('ChangePassword'),
+            onPress: () => navigation.navigate('ChangePass'),
         },
         {
             title: 'Initiate KYC',
@@ -42,7 +44,7 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
         {
             title: 'Face Data',
             subtitle: 'Configure face data',
-            onPress: () => console.log('FaceData'),
+            onPress: () => navigation.navigate('PersonalSettings'),
         },
         {
             title: 'History',
@@ -58,10 +60,10 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
 
     return (
         <ScreenContainer style={{ flex: 1, backgroundColor: colors.background, paddingHorizontal: 16 }}>
-        <TopBar title="Account Settings" onBack={() => navigation.goBack()} />
+            <TopBar title="Account Settings" onBack={() => navigation.goBack()} />
 
             <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
-            <View style={{marginTop: 60}}></View>
+                <View style={{ marginTop: 60 }}></View>
 
                 {settings.map((item, index) => (
                     <SettingsCard
@@ -76,12 +78,21 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
 
                 <SettingsCard
                     title="Sign out"
-                    onPress={handleSignOut}
+                    onPress={() => setSignOutVisible(true)}
                     rightIcon={
-                        <Ionicons name="log-out-outline" size={20} color="#888"  />
+                        <Ionicons name="log-out-outline" size={20} color="#888" />
                     }
                 />
             </ScrollView>
+            <SignOutModal
+                visible={signOutVisible}
+                onCancel={() => setSignOutVisible(false)}
+                onConfirm={() => {
+                    setSignOutVisible(false);
+                    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+                }}
+            />
+
         </ScreenContainer>
     );
 };

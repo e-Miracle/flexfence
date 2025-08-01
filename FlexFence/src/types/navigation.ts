@@ -22,6 +22,8 @@ export type RootStackParamList = {
     InitiateKyc: undefined
     Help: undefined
     About: undefined
-
+    PersonalSettings: undefined
+    EditProfile: undefined
+    ChangePass: undefined
   };
   

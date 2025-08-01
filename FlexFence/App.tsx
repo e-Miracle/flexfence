@@ -32,6 +32,9 @@ import GeofenceSettings from './src/screens/GeofenceScreen';
 import HelpScreen from './src/screens/HelpScreen';
 import AboutScreen from './src/screens/AboutScreen';
 import InitiateKycScreen from './src/screens/InitiateKycScreen';
+import PersonalSettingsScreen from './src/screens/PersonalSettingScreen';
+import EditProfileScreen from './src/screens/EditScreen';
+import ChangePasswordScreen from './src/screens/ChangePasswordScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -81,6 +84,9 @@ const AppContent = () => {
           <Stack.Screen name="Help" component={HelpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="About" component={AboutScreen} options={{ headerShown: false }} />
           <Stack.Screen name="InitiateKyc" component={InitiateKycScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="PersonalSettings" component={PersonalSettingsScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="ChangePass" component={ChangePasswordScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
