@@ -66,15 +66,15 @@ const ConfigureFaceDataScreen = () => {
       };
       
 
-    if (showWalkthrough === null) return null; // loading or waiting
+    if (showWalkthrough === null) return null; 
 
     return showWalkthrough ? (
         <ScreenContainer style={{ flex: 1, backgroundColor: colors.background, paddingBottom: 40 }}>
             <TopBar title="Configure Face Data" onBack={() => navigation.goBack()} />
             <View style={{ marginTop: 40 }} />
             <View style={styles.noticeContainer}>
-                <Text style={styles.noticeTitle}>{steps[currentStep].noticeTitle}</Text>
-                <Text style={styles.noticeSubtitle}>{steps[currentStep].noticeSubtitle}</Text>
+                <Text style={[styles.noticeTitle,{color:colors.text}]}>{steps[currentStep].noticeTitle}</Text>
+                <Text style={[styles.noticeSubtitle, {color:colors.reggy}]}>{steps[currentStep].noticeSubtitle}</Text>
             </View>
 
             <ScrollView
@@ -99,8 +99,8 @@ const ConfigureFaceDataScreen = () => {
                             ))}
                         </View>
                         <View style={styles.instructionContainer}>
-                            <Text style={styles.instructionTitle}>{item.instruction}</Text>
-                            <Text style={styles.instructionSubtitle}>{item.sub}</Text>
+                            <Text style={[styles.instructionTitle,{color:colors.text}]}>{item.instruction}</Text>
+                            <Text style={[styles.instructionSubtitle, {color:colors.reggy}]}>{item.sub}</Text>
                         </View>
                     </View>
                 ))}
@@ -121,7 +121,7 @@ const ConfigureFaceDataScreen = () => {
             </View>
         </ScreenContainer>
     ) : (
-        <ScreenContainer style={{ flex: 1, backgroundColor: '#fff' }}>
+        <ScreenContainer style={{ flex: 1, backgroundColor: colors.background}}>
             <TopBar title="Face Data" onBack={() => navigation.goBack()} />
             <View style={{ marginTop: 60 }} />
 
@@ -134,8 +134,8 @@ const ConfigureFaceDataScreen = () => {
                     scrollRef.current?.scrollTo({ x: 0, animated: false });
                 }}
             >
-                <Text style={styles.optionText}>Update face data</Text>
-                <Ionicons name="scan" size={20} />
+                <Text style={[styles.optionText, {color:colors.text}]}>Update face data</Text>
+                <Ionicons name="scan" size={20} color={colors.text} />
             </TouchableOpacity>
 
             <TouchableOpacity
