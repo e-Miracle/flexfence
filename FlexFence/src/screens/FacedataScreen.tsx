@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     iconRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 20,
+        gap: 80,
         marginTop: 24,
     },
     faceImage: {
