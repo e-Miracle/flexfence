@@ -35,6 +35,7 @@ import InitiateKycScreen from './src/screens/InitiateKycScreen';
 import PersonalSettingsScreen from './src/screens/PersonalSettingScreen';
 import EditProfileScreen from './src/screens/EditScreen';
 import ChangePasswordScreen from './src/screens/ChangePasswordScreen';
+import ConfigureFaceDataScreen from './src/screens/FacedataScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -87,6 +88,7 @@ const AppContent = () => {
           <Stack.Screen name="PersonalSettings" component={PersonalSettingsScreen} options={{ headerShown: false }} />
           <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ChangePass" component={ChangePasswordScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Facedata" component={ConfigureFaceDataScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>

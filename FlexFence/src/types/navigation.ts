@@ -25,5 +25,7 @@ export type RootStackParamList = {
     PersonalSettings: undefined
     EditProfile: undefined
     ChangePass: undefined
+    NextFaceStep: undefined
+    Facedata: undefined
   };
   

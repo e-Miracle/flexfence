@@ -44,7 +44,7 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
         {
             title: 'Face Data',
             subtitle: 'Configure face data',
-            onPress: () => navigation.navigate('PersonalSettings'),
+            onPress: () => navigation.navigate('Facedata'),
         },
         {
             title: 'History',

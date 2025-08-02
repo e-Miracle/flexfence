@@ -68,6 +68,7 @@ const ScanQRCodeScreen: React.FC = () => {
     return (
         <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
             <TopBar title="Scan QR Code" onBack={() => navigation.goBack()} />
+            <View style={{ marginTop: 40 }}></View>
 
             <Text style={[styles.instruction, { color: colors.primary }]}>
                 Scan QR code to join{'\n'}fence/event
