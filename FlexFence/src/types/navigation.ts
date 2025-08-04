@@ -27,5 +27,7 @@ export type RootStackParamList = {
     ChangePass: undefined
     NextFaceStep: undefined
     Facedata: undefined
+    Notification: undefined
+    NotificationSetting: undefined
   };
   

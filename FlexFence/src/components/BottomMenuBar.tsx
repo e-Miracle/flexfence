@@ -30,7 +30,7 @@ const BottomMenuBar = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* Notification */}
-      <TouchableOpacity onPress={() => navigation.navigate('Notifications')} style={styles.menuItem}>
+      <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={styles.menuItem}>
         <View style={styles.notificationIcon}>
           <Feather name="bell" size={24} color={colors.text} />
           <View style={styles.badge}>

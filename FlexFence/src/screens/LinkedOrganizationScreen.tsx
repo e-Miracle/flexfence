@@ -50,7 +50,7 @@ export default function LinkedOrganizationScreen() {
     return (
         <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
             <TopBar title="Linked Organization" onBack={() => navigation.goBack()} />
-
+            <View style={{marginTop: 40}}/>
             <FlatList
                 data={moreOrganizations}
                 keyExtractor={(item) => item.id}

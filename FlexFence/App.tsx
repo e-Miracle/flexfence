@@ -6,14 +6,14 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { View, Platform, StatusBar as RNStatusBar } from 'react-native';
 import Constants from 'expo-constants';
-
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
 import HomeScreen from './src/screens/HomeScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import OnboardScreen from './src/screens/OnboardScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { ThemeProvider, useTheme } from './src/constants/ThemeContext';
 import { useAppColors } from './src/hooks/useAppColors';
-import Button from './src/components/Button';
 import RegScreen from './src/screens/RegScreen';
 import VerifyPhoneScreen from './src/screens/VerifyPhoneScreen';
 import VerifyEmailScreen from './src/screens/VerifyEmailScreen';
@@ -36,6 +36,9 @@ import PersonalSettingsScreen from './src/screens/PersonalSettingScreen';
 import EditProfileScreen from './src/screens/EditScreen';
 import ChangePasswordScreen from './src/screens/ChangePasswordScreen';
 import ConfigureFaceDataScreen from './src/screens/FacedataScreen';
+import NotificationScreen from './src/screens/NotificationScreen';
+import NotificationSettingsScreen from './src/screens/NotificationSettingsScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -44,7 +47,8 @@ const AppContent = () => {
   const colors = useAppColors();
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
       <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <View
         style={{
@@ -89,10 +93,12 @@ const AppContent = () => {
           <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ChangePass" component={ChangePasswordScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Facedata" component={ConfigureFaceDataScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Notification" component={NotificationScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="NotificationSetting" component={NotificationSettingsScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </GestureHandlerRootView>
   );
 };
 
