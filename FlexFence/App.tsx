@@ -39,6 +39,7 @@ import ConfigureFaceDataScreen from './src/screens/FacedataScreen';
 import NotificationScreen from './src/screens/NotificationScreen';
 import NotificationSettingsScreen from './src/screens/NotificationSettingsScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import HistoryScreen from './src/screens/HistoryScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -95,6 +96,7 @@ const AppContent = () => {
           <Stack.Screen name="Facedata" component={ConfigureFaceDataScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Notification" component={NotificationScreen} options={{ headerShown: false }} />
           <Stack.Screen name="NotificationSetting" component={NotificationSettingsScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="History" component={HistoryScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>

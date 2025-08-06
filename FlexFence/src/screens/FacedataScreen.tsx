@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     },
     noticeTitle: {
         fontSize: 28,
-        fontWeight: 'bold',
+        fontFamily: 'DMSans-Bold',
         color: '#000',
     },
     noticeSubtitle: {
@@ -171,6 +171,8 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: 'left',
         color: '#444',
+        fontFamily: 'DMSans-Regular',
+
     },
     slide: {
         alignItems: 'center',
@@ -195,14 +197,17 @@ const styles = StyleSheet.create({
     },
     instructionTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: 'DMSans-Bold',
+
     },
     instructionSubtitle: {
         marginTop: 6,
         fontSize: 14,
         color: '#555',
         textAlign: 'center',
+        fontFamily: 'DMSans-Regular',
+
     },
     dots: {
         marginTop: 20,

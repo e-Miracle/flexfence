@@ -53,7 +53,7 @@ const MoreScreen: React.FC<MoreScreenProps> = ({ navigation }) => {
     {
       title: 'History',
       subtitle: 'View usage history and logs',
-      onPress: () => console.log('History'),
+      onPress: () =>navigation.navigate('History'),
     },
     {
       title: 'Help & Support',

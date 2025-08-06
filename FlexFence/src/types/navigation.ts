@@ -29,5 +29,6 @@ export type RootStackParamList = {
     Facedata: undefined
     Notification: undefined
     NotificationSetting: undefined
+    History:undefined
   };
   

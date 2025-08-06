@@ -84,7 +84,7 @@ export default function LinkedOrganizationScreen() {
                             onPress={() => console.log(`${label} clicked`)}
                             variant="skip"
                         />
-                        <Text style={{ marginLeft: 8 , color:colors.text}}>{label}</Text>
+                        <Text style={{ marginLeft: 8 , color:colors.text, fontFamily:'DMSans-Regular'}}>{label}</Text>
                     </View>
                 ))}
             </View>

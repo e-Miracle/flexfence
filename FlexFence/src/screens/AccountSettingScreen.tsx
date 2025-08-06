@@ -22,7 +22,7 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
     const settings = [
         {
             title: 'Linked organizations',
-            onPress: () => console.log('LinkedOrgs'),
+            onPress: () => navigation.navigate('LinkedOrganization'),
         },
         {
             title: 'Change email',
@@ -49,7 +49,7 @@ const AccountSettingsScreen: React.FC<OnboardScreenProps> = ({ navigation }) => 
         {
             title: 'History',
             subtitle: 'Configure face data',
-            onPress: () => console.log('History'),
+            onPress: () => navigation.navigate('History'),
         },
     ];
 

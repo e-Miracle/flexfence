@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontFamily: 'RobotoMedium',
+    fontFamily: 'DMSans-Regular',
     fontSize: 16,
   },
   subtitle: {
     fontSize: 12,
-    fontFamily: 'RobotoRegular',
+    fontFamily: 'DMSans-Regular',
     marginTop: 2,
   },
   iconContainer: {

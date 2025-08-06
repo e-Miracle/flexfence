@@ -10,7 +10,7 @@ const BottomMenuBar = ({ navigation }) => {
   return (
     <View style={[styles.container, {backgroundColor:colors.background}]}>
       {/* Home */}
-      <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.menuItem}>
+      <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.menuItem}>
           <MaterialIcons name="home" size={24} color={colors.text}/>
         <Text style={[styles.label, { color: colors.text }]}>Home</Text>
       </TouchableOpacity>
@@ -70,6 +70,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     marginTop: 4,
+    fontFamily: 'DMSans-Regular',
+
   },
   iconCircle: {
     width: 25,
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   badgeText: {
     color: 'white',
     fontSize: 10,
-    fontWeight: 'bold',
+    fontFamily: 'DMSans-Bold',
   },
 });
 

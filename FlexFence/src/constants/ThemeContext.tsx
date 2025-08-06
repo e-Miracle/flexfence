@@ -1,39 +1,40 @@
-// src/theme/ThemeContext.tsx
+// src/constants/ThemeContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type ThemeMode = 'light' | 'dark' | 'system';
+type ThemeMode = 'light' | 'dark';
 
 interface ThemeContextType {
-  theme: 'light' | 'dark';
-  themeMode: ThemeMode;
+  theme: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
-  themeMode: 'light',
   setThemeMode: () => {},
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const systemScheme = useColorScheme(); // system value (reactive hook)
-  const [themeMode, setThemeMode] = useState<ThemeMode>('system');
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<ThemeMode>('light');
 
   useEffect(() => {
-    const effectiveTheme =
-      themeMode === 'system'
-        ? systemScheme === 'dark'
-          ? 'dark'
-          : 'light'
-        : themeMode;
+    const loadTheme = async () => {
+      const savedTheme = await AsyncStorage.getItem('appTheme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        setTheme(savedTheme);
+      }
+    };
 
-    setTheme(effectiveTheme);
-  }, [themeMode, systemScheme]);
+    loadTheme();
+  }, []);
+
+  const setThemeMode = async (mode: ThemeMode) => {
+    setTheme(mode);
+    await AsyncStorage.setItem('appTheme', mode);
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, themeMode, setThemeMode }}>
+    <ThemeContext.Provider value={{ theme, setThemeMode }}>
       {children}
     </ThemeContext.Provider>
   );
