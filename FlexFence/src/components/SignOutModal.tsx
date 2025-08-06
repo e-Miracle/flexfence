@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import Button from './Button';
+import { useAppColors } from '../hooks/useAppColors';
 
 interface SignOutModalProps {
   visible: boolean;
@@ -9,6 +10,8 @@ interface SignOutModalProps {
 }
 
 const SignOutModal: React.FC<SignOutModalProps> = ({ visible, onCancel, onConfirm }) => {
+  const colors = useAppColors();
+
   return (
     <Modal
       visible={visible}
@@ -16,8 +19,8 @@ const SignOutModal: React.FC<SignOutModalProps> = ({ visible, onCancel, onConfir
       animationType="fade"
     >
       <View style={styles.overlay}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.title}>Are you sure you want to{'\n'}sign out</Text>
+        <View style={[styles.modalContainer, {backgroundColor:colors.background}]}>
+          <Text style={[styles.title,{color:colors.text}]}>Are you sure you want to{'\n'}sign out</Text>
           <View style={styles.buttonContainer}>
             <Button text="Cancel" onPress={onCancel} variant="outline" style={styles.button} />
             <Button text="Sign Out" onPress={onConfirm} variant="full" style={styles.button} />
