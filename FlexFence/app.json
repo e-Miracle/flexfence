@@ -28,7 +28,7 @@
         "CAMERA",
         "CAMERA"
       ],
-      "package": "com.henry225.FlexFence"
+      "package": "com.flexfence.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
