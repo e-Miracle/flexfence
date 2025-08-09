@@ -43,7 +43,7 @@ const MoreScreen: React.FC<MoreScreenProps> = ({ navigation }) => {
     {
       title: 'Notification Preferences',
       subtitle: 'Customize push and email notifications...',
-      onPress: () => console.log('NotificationPreferences'),
+      onPress: () => navigation.navigate('NotificationSetting'),
     },
     {
       title: 'App Appearance',
@@ -53,7 +53,7 @@ const MoreScreen: React.FC<MoreScreenProps> = ({ navigation }) => {
     {
       title: 'History',
       subtitle: 'View usage history and logs',
-      onPress: () => console.log('History'),
+      onPress: () =>navigation.navigate('History'),
     },
     {
       title: 'Help & Support',

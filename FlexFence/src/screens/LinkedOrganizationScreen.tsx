@@ -50,7 +50,7 @@ export default function LinkedOrganizationScreen() {
     return (
         <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
             <TopBar title="Linked Organization" onBack={() => navigation.goBack()} />
-
+            <View style={{marginTop: 40}}/>
             <FlatList
                 data={moreOrganizations}
                 keyExtractor={(item) => item.id}
@@ -84,7 +84,7 @@ export default function LinkedOrganizationScreen() {
                             onPress={() => console.log(`${label} clicked`)}
                             variant="skip"
                         />
-                        <Text style={{ marginLeft: 8 , color:colors.text}}>{label}</Text>
+                        <Text style={{ marginLeft: 8 , color:colors.text, fontFamily:'DMSans-Regular'}}>{label}</Text>
                     </View>
                 ))}
             </View>

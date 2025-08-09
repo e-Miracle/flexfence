@@ -114,6 +114,8 @@ const SelfieScreen: React.FC = () => {
     return (
         <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
             <TopBar title="Selfie Verification" onBack={() => navigation.goBack()} />
+            <View style={{ marginTop: 40 }}></View>
+
             <Text style={{ color: colors.primary, fontFamily: 'DMSans-Regular', textAlign: 'center', marginTop: 40 }}>
                 Take selfie to verify your{'\n'}identity/join fence
             </Text>

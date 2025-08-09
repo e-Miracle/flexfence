@@ -60,7 +60,7 @@ const Button: React.FC<ButtonProps> = ({
         onPress={onPress}
         style={[styles.outlineButton, style, { borderColor: colors.primary }]}
       >
-        {renderContent(colors.primary)} {/* 👈 pass correct text color */}
+        {renderContent(colors.primary)}
       </TouchableOpacity>
     );
   }

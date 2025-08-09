@@ -145,7 +145,6 @@ const OnboardScreen: React.FC<OnboardScreenProps>  = ({ navigation }) => {
                 </View>
             )}
 
-            {/* Buttons */}
             {currentSlide === slides.length - 1 ? (
                 <View style={styles.fullButtonWrapper}>
                     <Button text="Get Started" variant="full" onPress={() => navigation.navigate('Reg')} />

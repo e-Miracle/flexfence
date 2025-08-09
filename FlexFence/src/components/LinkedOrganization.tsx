@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Button from './Button';
@@ -49,27 +48,6 @@ const LinkedOrganizations: React.FC = () => {
     navigation.navigate('LinkedOrganization');
   };
 
-  const renderItem = ({ item }: any) => (
-    <View style={styles.row}>
-      <View>
-        <Text style={[styles.title, item.id === '1' && styles.highlightedTitle]}>
-          {item.title}
-        </Text>
-        <Text style={[styles.subtitle, item.id === '1' && styles.highlightedSubtitle]}>
-          {item.subtitle}
-        </Text>
-      </View>
-
-      <Button
-        text="Clock In"
-        onPress={() => console.log(`Clocked into ${item.title}`)}
-        variant="next"
-        style={styles.clockButton}
-        textStyle={styles.clockText}
-      />
-    </View>
-  );
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -79,17 +57,41 @@ const LinkedOrganizations: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={organizations}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
+      <View>
+        {organizations.map((item, index) => (
+          <View key={item.id}>
+            <View style={styles.row}>
+              <View>
+                <Text style={[styles.title, item.id === '1' && styles.highlightedTitle]}>
+                  {item.title}
+                </Text>
+                <Text style={[styles.subtitle, item.id === '1' && styles.highlightedSubtitle]}>
+                  {item.subtitle}
+                </Text>
+              </View>
+
+              <Button
+                text="Clock In"
+                onPress={() => console.log(`Clocked into ${item.title}`)}
+                variant="next"
+                style={styles.clockButton}
+                textStyle={styles.clockText}
+              />
+            </View>
+
+            {/* Separator except after last item */}
+            {index !== organizations.length - 1 && (
+              <View style={styles.separator} />
+            )}
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
 
 export default LinkedOrganizations;
+
 
 const styles = StyleSheet.create({
   container: {

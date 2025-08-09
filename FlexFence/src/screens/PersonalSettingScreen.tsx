@@ -19,12 +19,12 @@ const PersonalSettingsScreen: React.FC<PersonalSettingScreenProps> = ({ navigati
     {
       title: 'History',
       icon: 'time-outline',
-      onPress: () => console.log('Go to History'),
+      onPress: () => navigation.navigate('History'),
     },
     {
       title: 'Notification',
       icon: 'notifications-outline',
-      onPress: () => console.log('Go to Notifications'),
+      onPress: () => navigation.navigate('Notification'),
     },
     {
       title: 'Help & Support',
