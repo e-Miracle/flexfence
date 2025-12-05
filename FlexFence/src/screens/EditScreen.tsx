@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +18,8 @@ import { useAppColors } from '../hooks/useAppColors';
 import ScreenContainer from '../components/screencontainer';
 import TopBar from '../components/TopBar';
 import Button from '../components/Button';
+import { useLoadProfile } from '../hooks/useLoadProfile';
+import { updateProfile } from '../api/auth'; // You need to implement this API call
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -24,15 +27,27 @@ type Props = {
 
 const EditProfileScreen: React.FC<Props> = ({ navigation }) => {
   const colors = useAppColors();
+  const { profile, loading, error, reloadProfile } = useLoadProfile();
   const [avatarUri, setAvatarUri] = useState<string | null>(null);
-  const [fullName, setFullName] = useState('Judah David');
-  const [role, setRole] = useState('Member');
-  const [email, setEmail] = useState('address@example.com');
+  const [fullName, setFullName] = useState('');
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
+
+  // Load profile data when component mounts
+  useEffect(() => {
+    if (profile) {
+      const name = `${profile.first_name} ${profile.last_name}`.trim();
+      setFullName(name);
+      setRole(profile.role || '');
+      setEmail(profile.email || '');
+      setAvatarUri(profile.avatar || null); // Assuming profile.avatar exists
+    }
+  }, [profile]);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
-      alert('Sorry, we need media permissions to make this work!');
+      Alert.alert('Permission denied', 'We need media permissions to select an image.');
       return;
     }
 
@@ -48,17 +63,34 @@ const EditProfileScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const handleSave = () => {
-    console.log('Saving profile changes...');
-    console.log({ fullName, role, email, avatarUri });
-    // TODO: Add your API call or local storage logic here
+  const handleSave = async () => {
+    const [first_name, ...lastNameParts] = fullName.trim().split(' ');
+    const last_name = lastNameParts.join(' ');
+
+    const updatePayload = {
+      first_name: first_name || '',
+      last_name: last_name || '',
+    };
+
+    try {
+      await updateProfile(updatePayload);
+      Alert.alert('Success', 'Profile updated successfully!');
+      reloadProfile(); // Refresh profile data
+    } catch (err: any) {
+      console.error('Profile update error:', err);
+      Alert.alert('Error', err.message || 'Failed to update profile.');
+    }
   };
+
+  if (loading) return <Text style={{ textAlign: 'center', marginTop: 50 }}>Loading...</Text>;
+  if (error) return <Text style={{ textAlign: 'center', marginTop: 50 }}>Error: {error}</Text>;
 
   return (
     <ScreenContainer style={[styles.container, { backgroundColor: colors.background }]}>
       <TopBar title="Edit Profile" onBack={() => navigation.goBack()} />
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        {/* Avatar */}
         <View style={styles.avatarContainer}>
           <View style={styles.avatarWrapper}>
             <Image
@@ -71,11 +103,13 @@ const EditProfileScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
 
+        {/* Information Fields */}
         <View style={styles.infoSection}>
+          {/* Full Name (Editable) */}
           <View style={styles.infoItem}>
             <Text style={styles.label}>Full Name</Text>
             <TextInput
-              style={[styles.input, {color: colors.text}]}
+              style={[styles.input, { color: colors.text }]}
               value={fullName}
               onChangeText={setFullName}
               placeholder="Enter full name"
@@ -83,31 +117,30 @@ const EditProfileScreen: React.FC<Props> = ({ navigation }) => {
             />
           </View>
 
+          {/* Role (READ ONLY) */}
           <View style={styles.infoItem}>
             <Text style={styles.label}>Role</Text>
             <TextInput
-              style={[styles.input, { color: colors.text }]}
+              style={[styles.input, { color: '#999' }]}
               value={role}
-              onChangeText={setRole}
-              placeholder="Enter role"
-              placeholderTextColor="#aaa"
+              editable={false}
             />
           </View>
 
+          {/* Email (READ ONLY) */}
           <View style={styles.infoItem}>
             <Text style={styles.label}>Email</Text>
             <TextInput
-              style={[styles.input, { color: colors.text }]}
+              style={[styles.input, { color: '#999' }]}
               value={email}
-              onChangeText={setEmail}
-              placeholder="Enter email"
-              placeholderTextColor="#aaa"
+              editable={false}
               keyboardType="email-address"
               autoCapitalize="none"
             />
           </View>
         </View>
 
+        {/* Save Button */}
         <View style={{ marginTop: 40 }}>
           <Button text="Save Changes" variant="full" onPress={handleSave} />
         </View>

@@ -20,8 +20,8 @@ interface ButtonProps {
   textStyle?: TextStyle;
   icon?: ReactNode; // 👈 Accepts JSX icon element
   iconPosition?: 'left' | 'right'; // Optional, default to left
+  disabled?: boolean; // 👈 New prop
 }
-
 
 const Button: React.FC<ButtonProps> = ({
   text,
@@ -31,6 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   textStyle,
   icon,
   iconPosition = 'left',
+  disabled = false, // default
 }) => {
   const colors = useAppColors();
 
@@ -45,36 +46,49 @@ const Button: React.FC<ButtonProps> = ({
       <Text style={[styles.nextText, textStyle, { color: textColor }]}>{text}</Text>
     </View>
   );
-  
+
+  // 🧩 Skip Button
   if (variant === 'skip') {
     return (
-      <TouchableOpacity onPress={onPress} style={[styles.skipButton, style]}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.skipButton, style, disabled && styles.disabledButton]}
+        disabled={disabled}
+      >
         <Text style={[styles.skipText, textStyle, { color: colors.text }]}>{text}</Text>
       </TouchableOpacity>
     );
   }
 
+  // 🧩 Outline Button
   if (variant === 'outline') {
     return (
       <TouchableOpacity
         onPress={onPress}
-        style={[styles.outlineButton, style, { borderColor: colors.primary }]}
+        style={[
+          styles.outlineButton,
+          style,
+          { borderColor: colors.primary },
+          disabled && styles.disabledButton,
+        ]}
+        disabled={disabled}
       >
-        {renderContent(colors.primary)}
+        {renderContent(disabled ? '#aaa' : colors.primary)}
       </TouchableOpacity>
     );
   }
-  
-  
+
+  // 🧩 Gradient Button (full or next)
   const gradientStyle = variant === 'full' ? styles.fullButton : styles.nextButton;
+  const gradientColors = disabled ? ['#ccc', '#ccc'] : ['#1F229A', '#0BC1D8'];
 
   return (
-    <TouchableOpacity onPress={onPress} style={style}>
+    <TouchableOpacity onPress={onPress} style={style} disabled={disabled}>
       <LinearGradient
         colors={['#1F229A', '#0BC1D8']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={gradientStyle}
+        style={[gradientStyle, disabled && styles.disabledButton]}
       >
         {renderContent()}
       </LinearGradient>
@@ -130,7 +144,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+  // 🧩 Disabled style
+  disabledButton: {
+    opacity: 0.6,
+  },
 });
 
 export default Button;
+

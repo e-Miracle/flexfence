@@ -19,6 +19,8 @@
       }
     },
     "android": {
+      "softwareKeyboardLayoutMode": "resize",
+      "windowSoftInputMode": "adjustResize",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/purplelogo.png",
         "backgroundColor": "#ffffff"

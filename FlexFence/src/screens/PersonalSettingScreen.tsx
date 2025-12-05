@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { useAppColors } from '../hooks/useAppColors';
 import SignOutModal from '../components/SignOutModal';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import { useLoadProfile } from '../hooks/useLoadProfile';
 
 type PersonalSettingScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -14,6 +14,17 @@ type PersonalSettingScreenProps = {
 const PersonalSettingsScreen: React.FC<PersonalSettingScreenProps> = ({ navigation }) => {
   const colors = useAppColors();
   const [signOutVisible, setSignOutVisible] = useState(false);
+
+  const { profile, loading, error } = useLoadProfile();
+
+  // Handle loading/error gracefully
+  const fullName = loading
+    ? "Loading..."
+    : error
+    ? "Unknown User"
+    : `${profile.first_name} ${profile.last_name}`;
+
+  const role = loading ? "..." : profile.role || "Member";
 
   const menuItems = [
     {
@@ -40,6 +51,7 @@ const PersonalSettingsScreen: React.FC<PersonalSettingScreenProps> = ({ navigati
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
+      
       {/* Top Bar */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -48,14 +60,14 @@ const PersonalSettingsScreen: React.FC<PersonalSettingScreenProps> = ({ navigati
       </View>
 
       {/* Profile Section */}
-      <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}  style={styles.profileContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={styles.profileContainer}>
         <Image
           source={require('../assets/Profilephoto.png')}
           style={styles.avatar}
         />
         <View>
-          <Text style={[styles.name, {color:colors.text}]}>Judah David</Text>
-          <Text style={[styles.role, {color:colors.text}]}>Member</Text>
+          <Text style={[styles.name, { color: colors.text }]}>{fullName}</Text>
+          <Text style={[styles.role, { color: colors.text }]}>{role}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color="#888" style={styles.forwardIcon} />
       </TouchableOpacity>
@@ -70,19 +82,20 @@ const PersonalSettingsScreen: React.FC<PersonalSettingScreenProps> = ({ navigati
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.menuItem} onPress={item.onPress}>
             <Ionicons name={item.icon as any} size={20} color={colors.text} />
-            <Text style={[styles.menuText, {color: colors.text}]}>{item.title}</Text>
+            <Text style={[styles.menuText, { color: colors.text }]}>{item.title}</Text>
             <Ionicons name="chevron-forward" size={20} color="#888" style={styles.forwardIcon} />
           </TouchableOpacity>
         )}
       />
+
       <SignOutModal
-                visible={signOutVisible}
-                onCancel={() => setSignOutVisible(false)}
-                onConfirm={() => {
-                    setSignOutVisible(false);
-                    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
-                }}
-            />
+        visible={signOutVisible}
+        onCancel={() => setSignOutVisible(false)}
+        onConfirm={() => {
+          setSignOutVisible(false);
+          navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+        }}
+      />
     </View>
   );
 };
@@ -94,7 +107,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 30
-
   },
   topBar: {
     marginTop: 12,

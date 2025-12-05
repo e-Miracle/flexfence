@@ -48,7 +48,8 @@ const AppContent = () => {
   const colors = useAppColors();
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.background }}>
+
 
       <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <View

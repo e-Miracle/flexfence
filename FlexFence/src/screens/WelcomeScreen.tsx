@@ -6,6 +6,8 @@ import { useAppColors } from '../hooks/useAppColors';
 import ScreenContainer from '../components/screencontainer';
 import { useTheme } from '../constants/ThemeContext';
 import Button from '../components/Button';
+import { useLoadProfile } from '../hooks/useLoadProfile';
+
 
 type WelcomeScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Welcome'>;
@@ -14,6 +16,10 @@ type WelcomeScreenProps = {
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     const colors = useAppColors();
     const { theme } = useTheme();
+    const { profile, loading, error } = useLoadProfile();
+
+    if (loading) return <Text>Loading...</Text>;
+    if (error) return <Text>Error: {error}</Text>;
 
     const logoSource =
         theme === 'dark'
@@ -27,7 +33,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
             </View>
             <View style={styles.bottomContent}>
                 <Text style={[styles.welcomeTitle, { color: colors.primary }]}>
-                    Hello Judah!
+                    Hello {profile.first_name}!
                 </Text>
                 <Text style={[styles.welcomeTitle, { color: colors.primary }]}>
                     Welcome to Flexfence

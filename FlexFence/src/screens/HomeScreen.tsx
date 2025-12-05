@@ -25,6 +25,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       : require('../assets/blackflex.png');
 
   // ⏱ Navigate to DetailsScreen after 3 seconds
+  // useEffect(() => {
+  //   const callGoogle = async () => {
+  //     try {
+  //       const res = await fetch("https://www.google.com", {
+  //         method: "GET",
+  //       });
+  //       console.log("Response:", res);
+  //     } catch (err) {
+  //       console.error("Error:", err);
+  //     }
+  //   };
+  
+  //   callGoogle();
+  // }, []);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace('Onboard');

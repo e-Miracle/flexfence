@@ -24,8 +24,10 @@ interface InputFieldProps extends TextInputProps {
     variant?: 'default' | 'phone' | 'password';
     phoneValue?: string;
     onChangePhoneNumber?: (text: string) => void;
+    onSelectCountryCode?: (code: string) => void;
     spacing?: number;
 }
+
 
 const countryData: Country[] = [
     { name: 'Nigeria', code: '+234' },
@@ -62,9 +64,11 @@ const InputField: React.FC<InputFieldProps> = ({
     variant = 'default',
     phoneValue,
     onChangePhoneNumber,
+    onSelectCountryCode, 
     spacing = 0,
     ...rest
 }) => {
+
     const [selectedCode, setSelectedCode] = useState('+234');
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -94,6 +98,9 @@ const InputField: React.FC<InputFieldProps> = ({
                                         onPress={() => {
                                             setSelectedCode(item.code);
                                             setDropdownVisible(false);
+                                
+                                            // send code to parent
+                                            onSelectCountryCode && onSelectCountryCode(item.code);
                                         }}
                                     >
                                         <Text style={styles.dropdownItemText}>
@@ -101,6 +108,7 @@ const InputField: React.FC<InputFieldProps> = ({
                                         </Text>
                                     </TouchableOpacity>
                                 )}
+                                
                             />
                         </View>
                     )}
